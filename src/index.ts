@@ -1,10 +1,15 @@
 import dotenv from "dotenv";
 import express from "express";
 import { AddressInfo } from "net";
+import { userRouter } from "./routes/userRouter";
+import { friendshipRouter } from './routes/friendshipRoutes';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+
+app.use('/user', userRouter);
+app.use('/friendship', friendshipRouter);
 
 const server = app.listen(process.env.PORT || 3000, ()=>{
     if(server){

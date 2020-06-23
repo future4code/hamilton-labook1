@@ -3,6 +3,9 @@ import Knex from "knex";
 
 export abstract class BaseDatabase{
 
+    protected static TABLE_USER: string = "labook1_User";
+    protected static TABLE_FRIENDSHIP: string = "labook1_Friendship";
+
     private static connection: Knex | null = null;
 
     protected getConnection(): knex{
