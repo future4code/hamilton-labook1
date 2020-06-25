@@ -21,3 +21,20 @@ CREATE TABLE labook1_Post (
     author_Id VARCHAR(255),
     FOREIGN KEY(author_Id) REFERENCES labook1_User (id)
 );
+
+CREATE TABLE labook1_Like (
+	user_id VARCHAR(255) NOT NULL,
+    post_id VARCHAR(255) NOT NULL,
+    vote_direction INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES labook1_User (id),
+    FOREIGN KEY(post_id) REFERENCES labook1_Post (id)
+);
+
+CREATE TABLE labook1_Comment (
+	id VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    post_id VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES labook1_User (id),
+    FOREIGN KEY(post_id) REFERENCES labook1_Post (id)
+);

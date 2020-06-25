@@ -5,6 +5,7 @@ import { userRouter } from "./routes/userRouter";
 import { friendshipRouter } from './routes/friendshipRoutes';
 import { postRoutes } from './routes/postRoutes';
 import { feedRoutes } from './routes/feedRoutes';
+import { likeRoutes } from "./routes/likeRoutes";
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,7 @@ app.use('/user', userRouter);
 app.use('/friendship', friendshipRouter);
 app.use('/post', postRoutes);
 app.use('/feed', feedRoutes);
+app.use('/like', likeRoutes);
 
 const server = app.listen(process.env.PORT || 3000, ()=>{
     if(server){
