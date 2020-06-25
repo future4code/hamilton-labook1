@@ -3,6 +3,7 @@ import { Authenticator } from '../services/Authenticator';
 import { IdGenerator } from '../services/IdGenerator';
 import { Post } from '../models/Post';
 import { PostDatabase } from '../data/PostDatabase';
+import { successMessage } from '../messages';
 
 export class PostController {
     public async createPost(req: Request, res: Response){
@@ -23,9 +24,7 @@ export class PostController {
 
             const postDB = await new PostDatabase().createPost(postData);
 
-            res.status(200).send({
-                message: "Post criado com sucesso."
-            });
+            res.status(200).send(successMessage.createPost);
         }catch(error){
             res.status(400).send({ message: error.message });
         }

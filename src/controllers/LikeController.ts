@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Authenticator } from '../services/Authenticator';
 import { LikeDatabase } from '../data/LikeDatabase';
 import { LikeBusiness } from '../business/LikeBusiness';
+import { successMessage } from '../messages';
 
 export class LikeController {
     public async likePost(req: Request, res: Response) {
@@ -17,7 +18,7 @@ export class LikeController {
 
             const likeBusiness = await new LikeBusiness().votePost(userData);
 
-            res.status(200).send({message: "Voto registrado."});
+            res.status(200).send(successMessage.likePost);
         }catch(error){
             res.status(400).send({
                 message: error.message

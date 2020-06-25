@@ -1,7 +1,10 @@
 
 export enum successMessage{
     friendship = "Agora vocês são amigos.",
-    friendshipDelete = "Amizade desfeita."
+    friendshipDelete = "Amizade desfeita.",
+    createComment = "Comentário criado com sucesso.",
+    likePost = "Voto registrado.",
+    createPost = "Post criado com sucesso."
 };
 
 export enum failureMessage{
