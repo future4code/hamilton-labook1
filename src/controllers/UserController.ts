@@ -4,6 +4,7 @@ import { IdGenerator } from '../services/IdGenerator';
 import { UserDatabase } from '../data/UserDatabase';
 import { Authenticator } from '../services/Authenticator';
 import { failureMessage } from '../messages';
+import { RefreshTokenDataBase } from '../data/RefreshTokenDataBase';
 
 export class UserController {
     public async signUp(req: Request, res: Response){
@@ -11,7 +12,8 @@ export class UserController {
             const userData = {
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                device: req.body.device
             };
 
             const hashedPassword = await new HashManager().hash(userData.password);
@@ -24,9 +26,21 @@ export class UserController {
                 password: hashedPassword
             });
 
-            const token = new Authenticator().generateToken({ id });
+            const refreshToken = new Authenticator().generateRefreshToken({
+                id, device: userData.device
+            });
+            const refreshTokenDB = new RefreshTokenDataBase().createRefreshToken(
+                {
+                    token: refreshToken,
+                    device: userData.device,
+                    isActive: "true",
+                    user_id: id
+                }
+            );
 
-            res.status(200).send({ token });
+            const accessToken = new Authenticator().generateAccessToken({id})
+
+            res.status(200).send({ accessToken, refreshToken });
         }catch(error){
             res.status(400).send({ message: error.message });
         };
@@ -36,8 +50,9 @@ export class UserController {
         try{
             const userData = {
                 email: req.body.email,
-                password: req.body.password
-            };            
+                password: req.body.password,
+                device: req.body.device
+            };
 
             const userLogged = await new UserDatabase().getUserByEmail(userData.email)
 
@@ -50,9 +65,23 @@ export class UserController {
             );
 
             if(authorization){
-                const token = new Authenticator().generateToken({ id: userLogged.id });
+                const accessToken = new Authenticator().generateAccessToken(
+                    { id: userLogged.id, device: userData.device });
+                
+                const refreshToken = new Authenticator().generateRefreshToken({
+                    id: userLogged, device: userData.device
+                });
 
-                res.status(200).send(token);
+                const refreshTokenDB = await new RefreshTokenDataBase().
+                    createRefreshToken(
+                        {
+                            token: refreshToken,
+                            device: userData.device,
+                            isActive: "true",
+                            user_id: userLogged.id
+                        });
+                        
+                res.status(200).send({accessToken, refreshToken});
             }else{
                 throw new Error(failureMessage.login);
             };

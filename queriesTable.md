@@ -38,3 +38,11 @@ CREATE TABLE labook1_Comment (
     FOREIGN KEY(user_id) REFERENCES labook1_User (id),
     FOREIGN KEY(post_id) REFERENCES labook1_Post (id)
 );
+
+CREATE TABLE labook1_RefreshToken(
+	token VARCHAR(255) PRIMARY KEY,
+    device VARCHAR(255) NOT NULL,
+    isActive VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES labook1_User(id)
+);

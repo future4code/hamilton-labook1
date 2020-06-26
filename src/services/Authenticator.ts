@@ -1,11 +1,18 @@
 import * as jwt from "jsonwebtoken";
 
 export class Authenticator{
-    private static EXPIRES_IN = "1y";
+    private static REFRESH_EXPIRES_IN = "1y";
+    private static ACCESS_EXPIRES_IN = "1min";
 
-    public generateToken(data: AuthenticatorData):string{
+    public generateRefreshToken(data: AuthenticatorData):string{
         return jwt.sign(data, process.env.JWT_KEY as string,{
-            expiresIn: Authenticator.EXPIRES_IN,
+            expiresIn: Authenticator.REFRESH_EXPIRES_IN,
+        });
+    };
+
+    public generateAccessToken(data: AuthenticatorData):string{
+        return jwt.sign(data, process.env.JWT_KEY as string,{
+            expiresIn: Authenticator.ACCESS_EXPIRES_IN,
         });
     };
 
@@ -20,4 +27,5 @@ export class Authenticator{
 
 export interface AuthenticatorData{
     id: string;
+    device?: string
 };
