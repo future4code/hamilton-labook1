@@ -5,4 +5,4 @@ export interface inputPostDTO {
     creationDate: Date,
     type:         string,
     author_Id:    string
-}
+};

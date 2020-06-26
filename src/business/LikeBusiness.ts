@@ -14,7 +14,7 @@ export class LikeBusiness {
         const checkLike = await new LikeDatabase().checkLike(body.post_id, body.user_id);
 
         if(checkLike){
-            
+    
             const alterVote = await new LikeDatabase().alterVote(body);
             return alterVote;
         

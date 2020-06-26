@@ -8,6 +8,7 @@ export abstract class BaseDatabase{
     protected static TABLE_POST: string = "labook1_Post";
     protected static TABLE_LIKE: string = "labook1_Like";
     protected static TABLE_COMMENT: string = "labook1_Comment";
+    protected static TABLE_REFRESH_TOKEN: string = "labook1_RefreshToken";
 
     private static connection: Knex | null = null;
 
@@ -24,6 +25,7 @@ export abstract class BaseDatabase{
                 }
             });
         };
+
         return BaseDatabase.connection;
     };
 

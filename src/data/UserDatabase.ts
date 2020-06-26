@@ -22,7 +22,7 @@ export class UserDatabase extends BaseDatabase {
                 .from(BaseDatabase.TABLE_USER)
                 .where({email});
 
-            super.destroyConnection();
+            // super.destroyConnection();
 
             return user[0];
         }catch(error){
