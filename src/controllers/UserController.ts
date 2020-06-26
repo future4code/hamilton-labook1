@@ -12,7 +12,7 @@ export class UserController {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
-            }
+            };
 
             const hashedPassword = await new HashManager().hash(userData.password);
             const id = new IdGenerator().generate();
@@ -43,7 +43,7 @@ export class UserController {
 
             if(!userLogged){
                 throw new Error(failureMessage.login);
-            }
+            };
             
             const authorization = await new HashManager().compare(
                 userData.password, userLogged.password

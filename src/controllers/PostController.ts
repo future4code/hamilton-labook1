@@ -20,7 +20,7 @@ export class PostController {
                 creationDate: new Date(),
                 type: new Post().mapStringToType(req.body.type),
                 author_Id: getData.id,
-            }
+            };
 
             const postDB = await new PostDatabase().createPost(postData);
 

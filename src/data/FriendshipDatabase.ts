@@ -1,5 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { successMessage, failureMessage } from '../messages';
+import { failureMessage } from '../messages';
 
 export class FriendshipDatabase extends BaseDatabase {
     public async createFriendship(id_user1: string, id_user2: string): Promise<void>{
@@ -29,7 +29,7 @@ export class FriendshipDatabase extends BaseDatabase {
             return true;
         }else{
             return false;
-        };       
+        };    
     };
 
     public async deleteFriendship(id_user1: string, id_user2: string): Promise<number>{
